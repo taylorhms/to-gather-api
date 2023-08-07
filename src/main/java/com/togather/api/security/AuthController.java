@@ -27,8 +27,9 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(login.getLogin(), login.getSenha());
 
         Authentication auth = authManager.authenticate(uToken);
-        Usuario Usuario = (Usuario) auth.getPrincipal();
+        Usuario usuario = (Usuario) auth.getPrincipal();
 
-        return tokenService.gerarToken(Usuario);
+        String token = tokenService.gerarToken(usuario);
+        return new TokenDTO(token, usuario.getLogin());
     }
 }

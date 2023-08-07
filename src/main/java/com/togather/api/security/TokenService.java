@@ -14,13 +14,20 @@ import com.togather.api.entity.Usuario;
 public class TokenService {
 
     private static final String TOKEN_SECRET = "S3cr3t";
+    private static final String ISSUER = "Issuer";
 
-    public TokenDTO gerarToken(Usuario usuario) {
-        return new TokenDTO(JWT.create()
-                .withIssuer("Issuer")
+    public String gerarToken(Usuario usuario) {
+        return JWT.create()
+                .withIssuer(ISSUER)
                 .withSubject(usuario.getUsername())
+                .withClaim("id", usuario.getId())
                 .withExpiresAt(LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.of("-03:00")))
-                .sign(Algorithm.HMAC256(TOKEN_SECRET)));
+                .sign(Algorithm.HMAC256(TOKEN_SECRET));
     }
     
+    public String getSubject(String token) {
+        return JWT.require(Algorithm.HMAC256(TOKEN_SECRET))
+                .withIssuer(ISSUER)
+                .build().verify(token).getSubject();
+    }
 }
