@@ -2,6 +2,9 @@ package com.togather.api.dto.request;
 
 import lombok.Data;
 
+/**
+ * DTO para criação de novo usuário.
+ */
 @Data
 public class NovaContaDTO {
     

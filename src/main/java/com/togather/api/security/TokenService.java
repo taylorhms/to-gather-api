@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.togather.api.dto.response.TokenDTO;
 import com.togather.api.entity.Usuario;
 
 @Service

@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO para retonar dados do usuario para acesso aos demais endpoints.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
