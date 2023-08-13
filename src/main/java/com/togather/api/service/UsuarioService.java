@@ -2,9 +2,9 @@ package com.togather.api.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,10 +42,19 @@ public class UsuarioService {
         }
 
         Usuario novo = new Usuario();
-        BeanUtils.copyProperties(dados, novo);
+        novo.setNome(dados.getNome());
+        novo.setLogin(dados.getLogin());
         novo.setSenha(encoder.encode(dados.getSenha()));
+        novo.setCorPrimaria(corAleatoria());
+        novo.setCorSecundaria(corAleatoria());
         usuarioRepository.save(novo);
 
         return new UsuarioDTO(novo);
+    }
+
+    private String corAleatoria() {
+        String[] cores = { "red", "orange", "yellow", "lime", "blue", "cyan", "purple", "violet" };
+        Random random = new Random();
+        return cores[random.nextInt(cores.length)];
     }
 }

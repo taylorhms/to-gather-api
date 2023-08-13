@@ -32,7 +32,7 @@ public class Mensagem {
     private String tipo;
 
     @ManyToOne
-    @JoinColumn(name = "id_autor", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario autor;
 
     @Column(name = "data_envio")

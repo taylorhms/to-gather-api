@@ -22,7 +22,7 @@ public class MensagemService {
     private UsuarioService usuarioService;
 
     public List<MensagemDTO> todas() {
-        return mensagemRepository.findAll().stream().map(MensagemDTO::new).collect(Collectors.toList());
+        return mensagemRepository.findByOrderByDataEnvioDesc().stream().map(MensagemDTO::new).collect(Collectors.toList());
     }
 
     public MensagemDTO enviar(EnvioMensagemDTO envioDto) {
