@@ -14,6 +14,7 @@ import lombok.Data;
 @NoArgsConstructor
 public class UsuarioDTO {
     
+    private Long id;
     private String login;
     private String nome;
     private String corPrimaria;
@@ -21,6 +22,7 @@ public class UsuarioDTO {
     private byte[] foto;
 
     public UsuarioDTO(Usuario u) {
+        this.id = u.getId();
         this.login = u.getLogin();
         this.nome = u.getNome();
         this.corPrimaria = u.getCorPrimaria();
