@@ -40,7 +40,7 @@ public class SecurityConfig {
                 });
             })
             .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.disable())
+            .cors(cors -> cors.configure(http))
             .httpBasic(Customizer.withDefaults())
             .addFilterBefore(filterToken, UsernamePasswordAuthenticationFilter.class)
             .build();
