@@ -1,5 +1,6 @@
 package com.togather.api.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.togather.api.dto.request.AlterarUsuarioDTO;
 import com.togather.api.dto.request.NovaContaDTO;
@@ -113,5 +115,19 @@ public class UsuarioService {
         token = token.replace("Bearer ", "");
         String loginUsuarioLogado = tokenService.getSubject(token);
         return loginUsuarioLogado.equals(alvo.getLogin());
+    }
+
+    public ResponseEntity<String> alterarFotoDePerfil(Long id, String token, MultipartFile foto) throws IOException {
+        Usuario usuario = findById(id);
+        boolean autorizado = isSameUser(usuario, token);
+
+        if (!autorizado) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Você não tem permissão para alterar estes dados.");
+        }
+
+        usuario.setFoto(foto.getBytes());
+        usuarioRepository.save(usuario);
+
+        return ResponseEntity.ok("Salvo com sucesso.");
     }
 }
