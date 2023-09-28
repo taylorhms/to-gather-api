@@ -30,7 +30,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/login", "POST"),
                                 new AntPathRequestMatcher("/usuario", "POST"),
                                 new AntPathRequestMatcher("/h2-console/**"),
-                                new AntPathRequestMatcher("/swagger-ui.html")
+                                new AntPathRequestMatcher("/swagger-ui/**"),
+                                new AntPathRequestMatcher("/v3/api-docs/**")
                         ).permitAll()
                         .anyRequest().authenticated();
             })
